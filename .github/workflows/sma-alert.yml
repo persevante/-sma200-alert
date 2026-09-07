@@ -1,1 +1,30 @@
+name: SMA200 Alert
 
+on:
+  schedule:
+    - cron: "15 22 * * 1-5"
+      timezone: "Europe/Madrid"
+  workflow_dispatch:
+
+jobs:
+  check-sma:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar código
+        uses: actions/checkout@v4
+
+      - name: Instalar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Instalar dependencias
+        run: pip install yfinance
+
+      - name: Comprobar SMA200
+        env:
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          EMAIL_APP_PASSWORD: ${{ secrets.EMAIL_APP_PASSWORD }}
+        run: python check_sma.py
