@@ -2,8 +2,7 @@ name: SMA200 Alert
 
 on:
   schedule:
-    - cron: "15 22 * * 1-5"
-      timezone: "Europe/Madrid"
+    - cron: "15 20 * * 1-5"
   workflow_dispatch:
 
 jobs:
@@ -11,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Descargar código
+      - name: Descargar codigo
         uses: actions/checkout@v4
 
       - name: Instalar Python
